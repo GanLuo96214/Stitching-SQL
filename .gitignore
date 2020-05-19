@@ -1,0 +1,8 @@
+# IDE and editor
+
+*.iml
+*.ipr
+*.iws
+
+# ignore auto generate file
+*_stitching_sql_test.go
