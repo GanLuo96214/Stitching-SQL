@@ -3,6 +3,9 @@ package StitchingSQLGo
 type SQLFields []SQLField
 
 func (fs SQLFields) sqlFields(s *sql) error {
+	if s == nil {
+		return ErrorNilSQL
+	}
 	if err := validate.Var(fs, "required,dive,required"); err != nil {
 		return err
 	}

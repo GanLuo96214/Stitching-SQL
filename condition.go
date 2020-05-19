@@ -33,11 +33,16 @@ func (c Condition) Condition(s *sql) error {
 	}
 
 	// c.R
-	s.push(c.R)
+	if err := s.push(c.R); err != nil {
+		return err
+	}
 
 	return nil
 }
 
 func (c Condition) WhereItem(s *sql) error {
+	if s == nil {
+		return ErrorNilSQL
+	}
 	return c.Condition(s)
 }

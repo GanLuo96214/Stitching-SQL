@@ -7,7 +7,9 @@ import (
 type Offset uint64
 
 func (o Offset) offset(s *sql) error {
-
+	if s == nil {
+		return ErrorNilSQL
+	}
 	if o == 0 {
 		return nil
 	}

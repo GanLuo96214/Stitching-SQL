@@ -10,12 +10,14 @@ type sql struct {
 	args []interface{}
 }
 
-func (s *sql) push(arg interface{}) {
-
+func (s *sql) push(arg interface{}) error {
+	if s == nil {
+		return ErrorNilSQL
+	}
 	l := len(s.args) + 1
 	lS := strconv.FormatInt(int64(l), 10)
 	s.WriteString(" $")
 	s.WriteString(lS)
 	s.args = append(s.args, arg)
-
+	return nil
 }

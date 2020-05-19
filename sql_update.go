@@ -35,7 +35,9 @@ func (u Update) SQL() (string, []interface{}, error) {
 			return "", nil, err
 		}
 		s.WriteString(" =")
-		s.push(v)
+		if err := s.push(v); err != nil {
+			return "", nil, err
+		}
 
 		if i == len(u.Set)-1 {
 			break

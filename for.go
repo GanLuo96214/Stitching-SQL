@@ -7,6 +7,9 @@ const (
 )
 
 func (f For) For(s *sql) error {
+	if s == nil {
+		return ErrorNilSQL
+	}
 	if f == "" {
 		return nil
 	}

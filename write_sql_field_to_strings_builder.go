@@ -1,11 +1,11 @@
 package StitchingSQLGo
 
 func WriteSqlFieldToStringsBuilder(f SQLField, s *sql, isRefTable bool) error {
-	if err := validate.Var(f, "required,sql_field_not_return_empty_string"); err != nil {
-		return err
-	}
 	if s == nil {
 		return ErrorNilSQL
+	}
+	if err := validate.Var(f, "required,sql_field_not_return_empty_string"); err != nil {
+		return err
 	}
 
 	s.WriteByte(' ')

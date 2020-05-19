@@ -46,7 +46,9 @@ func (i Insert) SQL() (string, []interface{}, error) {
 	// (value1,value2)
 	s.WriteString(" (")
 	for idx, f := range keys {
-		s.push(i.Values[f])
+		if err := s.push(i.Values[f]); err != nil {
+			return "", nil, err
+		}
 
 		if idx == len(keys)-1 {
 			break
