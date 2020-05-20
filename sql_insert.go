@@ -68,3 +68,7 @@ func (i Insert) SQL() (string, []interface{}, error) {
 func (i Insert) Exec() (string, []interface{}, error) {
 	return i.SQL()
 }
+
+func (i Insert) ExecWithReturning() Returning {
+	return i.Returning
+}

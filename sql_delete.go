@@ -35,3 +35,7 @@ func (d Delete) SQL() (string, []interface{}, error) {
 func (d Delete) Exec() (string, []interface{}, error) {
 	return d.SQL()
 }
+
+func (d Delete) ExecWithReturning() Returning {
+	return d.Returning
+}

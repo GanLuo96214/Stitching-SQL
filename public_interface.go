@@ -28,3 +28,12 @@ insert into table (field) values (value)
 type Exec interface {
 	Exec() (string, []interface{}, error)
 }
+
+/*
+example:
+insert into table (field) values (value)
+*/
+type ExecWithReturning interface {
+	Exec
+	Returning() Returning
+}

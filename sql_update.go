@@ -57,3 +57,7 @@ func (u Update) SQL() (string, []interface{}, error) {
 func (u Update) Exec() (string, []interface{}, error) {
 	return u.SQL()
 }
+
+func (u Update) ExecWithReturning() Returning {
+	return u.Returning
+}
