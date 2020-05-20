@@ -31,3 +31,7 @@ func (d Delete) SQL() (string, []interface{}, error) {
 
 	return s.String(), s.args, nil
 }
+
+func (d Delete) Exec() (string, []interface{}, error) {
+	return d.SQL()
+}

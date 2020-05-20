@@ -20,3 +20,11 @@ table
 type SQLTable interface {
 	SQLTable() string
 }
+
+/*
+example:
+insert into table (field) values (value)
+*/
+type Exec interface {
+	Exec() (string, []interface{}, error)
+}

@@ -53,3 +53,7 @@ func (u Update) SQL() (string, []interface{}, error) {
 
 	return s.String(), s.args, nil
 }
+
+func (u Update) Exec() (string, []interface{}, error) {
+	return u.SQL()
+}
