@@ -100,3 +100,29 @@ func TestConditionOperator_ConditionOperator_NLT(t *testing.T) {
 		t.Fatalf("except\n%s\nnow\n%s", except, s.String())
 	}
 }
+
+func TestConditionOperator_ConditionOperator_IS(t *testing.T) {
+	s := sql{}
+
+	if err := IS.conditionOperator(&s); err != nil {
+		t.Fatal(err)
+	}
+
+	except := " is"
+	if s.String() != except {
+		t.Fatalf("except\n%s\nnow\n%s", except, s.String())
+	}
+}
+
+func TestConditionOperator_ConditionOperator_ISNOT(t *testing.T) {
+	s := sql{}
+
+	if err := ISNot.conditionOperator(&s); err != nil {
+		t.Fatal(err)
+	}
+
+	except := " is not"
+	if s.String() != except {
+		t.Fatalf("except\n%s\nnow\n%s", except, s.String())
+	}
+}

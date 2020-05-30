@@ -20,7 +20,7 @@ func condition_operator(fl validator.FieldLevel) bool {
 		return false
 	}
 	switch o {
-	case EQ, NEQ, GT, LT, GTEQ, LTEQ, NGT, NLT:
+	case EQ, NEQ, GT, LT, GTEQ, LTEQ, NGT, NLT, IS, ISNot:
 	default:
 		return false
 	}
