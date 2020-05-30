@@ -369,6 +369,9 @@ func main() {
 	fileName := fmt.Sprintf("%s_stitching_sql.go", flags.Type)
 	if flags.FileName != "" {
 		fileName = flags.FileName
+		if fileName[len(fileName)-3:] != ".go" {
+			fileName += ".go"
+		}
 	}
 
 	content, err := format.Source(b.Bytes())
