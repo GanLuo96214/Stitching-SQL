@@ -5,7 +5,7 @@ import (
 )
 
 func TestWhereItemLinker_WhereItem_And(t *testing.T) {
-	s := sql{}
+	s := SqlBuilder{}
 
 	if err := AND.WhereItem(&s); err != nil {
 		t.Fatal(err)
@@ -18,7 +18,7 @@ func TestWhereItemLinker_WhereItem_And(t *testing.T) {
 
 }
 func TestWhereItemLinker_WhereItem_Or(t *testing.T) {
-	s := sql{}
+	s := SqlBuilder{}
 
 	if err := OR.WhereItem(&s); err != nil {
 		t.Fatal(err)

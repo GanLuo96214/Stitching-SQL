@@ -17,7 +17,7 @@ func TestSelect_SQL(t *testing.T) {
 			TestSelect_SQLTable_F.Field2,
 			TestSelect_SQLTable_F.Field3,
 		},
-		SQLTable: TestSelect_SQLTable{},
+		Table: TestSelect_SQLTable{},
 		Where: Where{
 			Condition{
 				L: TestSelect_SQLTable_F.Field1,
@@ -65,7 +65,7 @@ func TestSelect_SQL(t *testing.T) {
 				},
 			},
 		},
-		OrderBy: map[SQLField]OrderByKind{
+		OrderBy: map[Field]OrderByKind{
 			TestSelect_SQLTable_F.Field1: ASC,
 			TestSelect_SQLTable_F.Field2: DESC,
 			TestSelect_SQLTable_F.Field3: ASC,

@@ -6,7 +6,7 @@ import (
 
 type Offset uint64
 
-func (o Offset) offset(s *sql) error {
+func (o Offset) offset(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

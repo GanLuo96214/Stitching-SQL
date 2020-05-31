@@ -11,7 +11,7 @@ type TestReturning_ReturningTable struct {
 
 func TestReturning_Returning(t *testing.T) {
 
-	s, r := sql{}, Returning{
+	s, r := SqlBuilder{}, Returning{
 		TestReturning_ReturningTable_F.Field1,
 		TestReturning_ReturningTable_F.Field2,
 		TestReturning_ReturningTable_F.Field3,

@@ -5,12 +5,12 @@ import (
 	"strings"
 )
 
-type sql struct {
+type SqlBuilder struct {
 	strings.Builder
 	args []interface{}
 }
 
-func (s *sql) push(arg interface{}) error {
+func (s *SqlBuilder) push(arg interface{}) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

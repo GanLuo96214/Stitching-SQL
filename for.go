@@ -6,7 +6,7 @@ const (
 	ForUpdate For = "update"
 )
 
-func (f For) For(s *sql) error {
+func (f For) For(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

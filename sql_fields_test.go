@@ -10,7 +10,7 @@ type TestSQLFields_SQLFieldsTable struct {
 }
 
 func TestSQLFields_SQLFields(t *testing.T) {
-	s, fs := sql{}, SQLFields{
+	s, fs := SqlBuilder{}, SQLFields{
 		TestSQLFields_SQLFieldsTable_F.Field1,
 		TestSQLFields_SQLFieldsTable_F.Field2,
 		TestSQLFields_SQLFieldsTable_F.Field3,

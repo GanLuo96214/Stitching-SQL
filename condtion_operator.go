@@ -23,7 +23,7 @@ const (
 
 var ErrorNotConditionOperator = errors.New("not a condition operator")
 
-func (o conditionOperator) conditionOperator(s *sql) error {
+func (o conditionOperator) conditionOperator(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

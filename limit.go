@@ -6,7 +6,7 @@ import (
 
 type Limit uint64
 
-func (l Limit) limit(s *sql) error {
+func (l Limit) limit(s *SqlBuilder) error {
 
 	if s == nil {
 		return ErrorNilSQL

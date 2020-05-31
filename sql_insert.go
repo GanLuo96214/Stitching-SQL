@@ -4,8 +4,8 @@ package StitchingSQLGo
 postgres https://www.postgresql.org/docs/current/sql-insert.html
 */
 type Insert struct {
-	SQLTable `validate:"required,sql_table_not_return_empty_string"`
-	Values   map[SQLField]interface{} `validate:"required,dive,keys,required,endkeys,required"`
+	Table  `validate:"required"`
+	Values map[Field]interface{} `validate:"required,dive,keys,required,endkeys,required"`
 	Returning
 }
 
@@ -14,21 +14,21 @@ func (i Insert) SQL() (string, []interface{}, error) {
 		return "", nil, err
 	}
 
-	s := sql{}
+	s := SqlBuilder{}
 
 	// insert into
 	s.WriteString("insert into")
 
 	// table
-	if err := writeSqlTableToStringsBuilder(i.SQLTable, &s); err != nil {
+	if err := i.Table.Table(&s); err != nil {
 		return "", nil, err
 	}
 
 	// (field1,fiedl2)
-	keys := make([]SQLField, 0, len(i.Values))
+	keys := make([]Field, 0, len(i.Values))
 	s.WriteString(" (")
 	for f := range i.Values {
-		if err := WriteSqlFieldToStringsBuilder(f, &s, false); err != nil {
+		if err := f.Field(&s, false); err != nil {
 			return "", nil, err
 		}
 		keys = append(keys, f)

@@ -10,7 +10,7 @@ type TestWhereItems_WhereItemTable struct {
 }
 
 func TestWhereItems_WhereItem(t *testing.T) {
-	s, is := sql{}, WhereItems{
+	s, is := SqlBuilder{}, WhereItems{
 		Condition{
 			L: TestWhereItems_WhereItemTable_F.Field1,
 			O: EQ,

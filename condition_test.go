@@ -10,9 +10,7 @@ type TestCondition_ConditionTable struct {
 }
 
 func TestCondition_Condition(t *testing.T) {
-	s := sql{args: make([]interface{}, 0)}
-
-	c := Condition{
+	s, c := SqlBuilder{}, Condition{
 		L: TestCondition_ConditionTable_F.Field1,
 		O: EQ,
 		R: 1,

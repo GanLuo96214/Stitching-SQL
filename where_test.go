@@ -10,7 +10,7 @@ type TestWhere_WhereTable struct {
 }
 
 func TestWhere_Where(t *testing.T) {
-	s, w := sql{}, Where{
+	s, w := SqlBuilder{}, Where{
 		Condition{
 			L: TestWhere_WhereTable_F.Field1,
 			O: EQ,

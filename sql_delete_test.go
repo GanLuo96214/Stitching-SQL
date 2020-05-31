@@ -11,7 +11,7 @@ type TestDelete_SQLTable struct {
 
 func TestDelete_SQL(t *testing.T) {
 	d := Delete{
-		SQLTable: TestDelete_SQLTable{},
+		Table: TestDelete_SQLTable{},
 		Where: Where{
 			Condition{
 				L: TestDelete_SQLTable_F.Field1,

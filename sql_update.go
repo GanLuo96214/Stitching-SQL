@@ -4,8 +4,8 @@ package StitchingSQLGo
 postgres https://www.postgresql.org/docs/current/sql-update.html
 */
 type Update struct {
-	SQLTable `validate:"required,sql_table_not_return_empty_string"`
-	Set      map[SQLField]interface{} `validate:"required"`
+	Table `validate:"required"`
+	Set   map[Field]interface{} `validate:"required"`
 	Where
 	Returning
 }
@@ -15,13 +15,13 @@ func (u Update) SQL() (string, []interface{}, error) {
 		return "", nil, err
 	}
 
-	s := sql{}
+	s := SqlBuilder{}
 
 	// update
 	s.WriteString("update")
 
 	// table
-	if err := writeSqlTableToStringsBuilder(u.SQLTable, &s); err != nil {
+	if err := u.Table.Table(&s); err != nil {
 		return "", nil, err
 	}
 
@@ -31,7 +31,7 @@ func (u Update) SQL() (string, []interface{}, error) {
 	// field1 = value1 , field2 = value2
 	i := 0
 	for f, v := range u.Set {
-		if err := WriteSqlFieldToStringsBuilder(f, &s, false); err != nil {
+		if err := f.Field(&s, false); err != nil {
 			return "", nil, err
 		}
 		s.WriteString(" =")

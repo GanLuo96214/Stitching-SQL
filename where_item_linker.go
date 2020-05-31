@@ -7,7 +7,7 @@ const (
 	OR  whereItemLinker = "or"  // 1 = 1 or  2 = 2
 )
 
-func (l whereItemLinker) WhereItem(s *sql) error {
+func (l whereItemLinker) WhereItem(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

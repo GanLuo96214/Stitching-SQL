@@ -2,7 +2,7 @@ package StitchingSQLGo
 
 type Returning SQLFields
 
-func (r Returning) Returning(s *sql) error {
+func (r Returning) Returning(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

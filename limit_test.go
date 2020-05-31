@@ -5,7 +5,7 @@ import (
 )
 
 func TestLimit_Limit_0(t *testing.T) {
-	s, l := sql{}, Limit(0)
+	s, l := SqlBuilder{}, Limit(0)
 
 	except := ""
 	if err := l.limit(&s); err != nil {
@@ -17,7 +17,7 @@ func TestLimit_Limit_0(t *testing.T) {
 }
 
 func TestLimit_Limit_1(t *testing.T) {
-	s, l := sql{}, Limit(1)
+	s, l := SqlBuilder{}, Limit(1)
 
 	except := " limit 1"
 	if err := l.limit(&s); err != nil {

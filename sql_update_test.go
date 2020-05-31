@@ -11,8 +11,8 @@ type TestUpdate_SQLTable struct {
 
 func TestUpdate_SQL(t *testing.T) {
 	u := Update{
-		SQLTable: TestUpdate_SQLTable{},
-		Set: map[SQLField]interface{}{
+		Table: TestUpdate_SQLTable{},
+		Set: map[Field]interface{}{
 			TestUpdate_SQLTable_F.Field1: 1,
 			TestUpdate_SQLTable_F.Field2: 2,
 			TestUpdate_SQLTable_F.Field3: 3,

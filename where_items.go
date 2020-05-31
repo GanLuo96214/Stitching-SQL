@@ -1,12 +1,12 @@
 package StitchingSQLGo
 
 type WhereItem interface {
-	WhereItem(*sql) error
+	WhereItem(*SqlBuilder) error
 }
 
 type WhereItems []WhereItem
 
-func (is WhereItems) WhereItem(s *sql) error {
+func (is WhereItems) WhereItem(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}
@@ -26,7 +26,7 @@ func (is WhereItems) WhereItem(s *sql) error {
 	return nil
 }
 
-func (is WhereItems) WhereItems(s *sql) error {
+func (is WhereItems) WhereItems(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

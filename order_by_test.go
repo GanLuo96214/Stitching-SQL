@@ -12,7 +12,7 @@ type TestOrderByTable struct {
 }
 
 func TestOrderBy_OrderBy(t *testing.T) {
-	s, b := sql{}, OrderBy{
+	s, b := SqlBuilder{}, OrderBy{
 		TestOrderByTable_F.Field1: ASC,
 		TestOrderByTable_F.Field2: DESC,
 		TestOrderByTable_F.Field3: ASC}

@@ -1,8 +1,8 @@
 package StitchingSQLGo
 
-type SQLFields []SQLField
+type SQLFields []Field
 
-func (fs SQLFields) sqlFields(s *sql) error {
+func (fs SQLFields) sqlFields(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}
@@ -11,7 +11,7 @@ func (fs SQLFields) sqlFields(s *sql) error {
 	}
 
 	for i, f := range fs {
-		if err := WriteSqlFieldToStringsBuilder(f, s, true); err != nil {
+		if err := f.Field(s, true); err != nil {
 			return err
 		}
 		if i == len(fs)-1 {

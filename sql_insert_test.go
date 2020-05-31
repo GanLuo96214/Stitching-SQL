@@ -13,8 +13,8 @@ type TestInsert_SQLTable struct {
 
 func TestInsert_SQL(t *testing.T) {
 	i := Insert{
-		SQLTable: TestInsert_SQLTable{},
-		Values: map[SQLField]interface{}{
+		Table: TestInsert_SQLTable{},
+		Values: map[Field]interface{}{
 			TestInsert_SQLTable_F.Field1: 1,
 			TestInsert_SQLTable_F.Field2: 2,
 			TestInsert_SQLTable_F.Field3: 3,

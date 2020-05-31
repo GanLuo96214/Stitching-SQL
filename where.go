@@ -2,7 +2,7 @@ package StitchingSQLGo
 
 type Where WhereItems // `validate:"required,where_items_array_structure"`
 
-func (w Where) where(s *sql) error {
+func (w Where) where(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

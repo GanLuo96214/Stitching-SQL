@@ -5,7 +5,7 @@ postgres https://www.postgresql.org/docs/current/sql-select.html
 */
 type Select struct {
 	SQLFields `validate:"required"`
-	SQLTable  `validate:"required,sql_table_not_return_empty_string"`
+	Table     `validate:"required"`
 	Where
 	OrderBy
 	Limit
@@ -18,7 +18,7 @@ func (slt Select) SQL() (string, []interface{}, error) {
 		return "", nil, err
 	}
 
-	s := sql{}
+	s := SqlBuilder{}
 
 	// select
 	s.WriteString("select")
@@ -32,7 +32,7 @@ func (slt Select) SQL() (string, []interface{}, error) {
 	s.WriteString(" from")
 
 	// table
-	if err := writeSqlTableToStringsBuilder(slt.SQLTable, &s); err != nil {
+	if err := slt.Table.Table(&s); err != nil {
 		return "", nil, err
 	}
 

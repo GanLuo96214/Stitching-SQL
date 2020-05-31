@@ -3,17 +3,17 @@ package StitchingSQLGo
 /*
 condition
 
-L sql field
+L SqlBuilder field
 O condition operator
 R value
 */
 type Condition struct {
-	L SQLField          `validate:"required"`
+	L Field             `validate:"required"`
 	O conditionOperator `validate:"required"`
 	R interface{}       `validate:"required"`
 }
 
-func (c Condition) Condition(s *sql) error {
+func (c Condition) Condition(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}
@@ -23,7 +23,7 @@ func (c Condition) Condition(s *sql) error {
 	}
 
 	// c.L
-	if err := WriteSqlFieldToStringsBuilder(c.L, s, true); err != nil {
+	if err := c.L.Field(s, true); err != nil {
 		return err
 	}
 
@@ -40,7 +40,7 @@ func (c Condition) Condition(s *sql) error {
 	return nil
 }
 
-func (c Condition) WhereItem(s *sql) error {
+func (c Condition) WhereItem(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

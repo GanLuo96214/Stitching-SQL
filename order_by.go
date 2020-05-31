@@ -7,9 +7,9 @@ const (
 	DESC OrderByKind = "desc"
 )
 
-type OrderBy map[SQLField]OrderByKind
+type OrderBy map[Field]OrderByKind
 
-func (b OrderBy) orderBy(s *sql) error {
+func (b OrderBy) orderBy(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}
@@ -25,7 +25,7 @@ func (b OrderBy) orderBy(s *sql) error {
 
 	i := 0
 	for f, k := range b {
-		if err := WriteSqlFieldToStringsBuilder(f, s, true); err != nil {
+		if err := f.Field(s, true); err != nil {
 			return err
 		}
 		s.WriteByte(' ')
