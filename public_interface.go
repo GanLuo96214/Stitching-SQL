@@ -2,23 +2,22 @@ package StitchingSQLGo
 
 /*
 Where field interface
-return Where field string
+write field into SqlBuilder string builder
 example:
-field_1
+field_1 or table_1.field
 */
-type SQLField interface {
-	SQLTable() string
-	SQLField() string
+type Field interface {
+	Field(*SqlBuilder, bool) error
 }
 
 /*
 Where table interface
-return Where table string
+write table into SqlBuilder string builder
 example:
 table
 */
-type SQLTable interface {
-	SQLTable() string
+type Table interface {
+	Table(*SqlBuilder) error
 }
 
 /*
