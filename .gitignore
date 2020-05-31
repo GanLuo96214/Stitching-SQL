@@ -6,3 +6,5 @@
 
 # ignore auto generate file
 *_stitching_sql_test.go
+# ignore back up file
+*.bk
