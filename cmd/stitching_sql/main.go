@@ -83,7 +83,7 @@ import(
 // --- table ---
 func ({{.Type}}) Table(s *SqlBuilder) error {
 	if s == nil {
-		return ErrorNilSQL
+		return {{if $.IsAddImport}}StitchingSQLGo.{{end}}ErrorNilSQL
 	}
 
 	s.WriteString(" {{.Table}}")
@@ -107,7 +107,7 @@ var (
 type generate{{$.Type}}field{{$k}} struct{}
 func (generate{{$.Type}}field{{$k}}) Field(s *{{if $.IsAddImport}}StitchingSQLGo.{{end}}SqlBuilder,isRefTable bool) error {
 	if s == nil {
-		return ErrorNilSQL
+		return {{if $.IsAddImport}}StitchingSQLGo.{{end}}ErrorNilSQL
 	}
 
 
