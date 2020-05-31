@@ -75,19 +75,25 @@ package {{.Package}}
 
 import(
 	"database/sql"
+	"errors"
 	{{if .IsAddImport}}"github.com/ganLuo960214/StitchingSQLGo"{{end}}
 )
 
 
 // --- table ---
-func ({{.Type}}) SQLTable() string {
-	return "{{.Table}}"
+func ({{.Type}}) Table(s *SqlBuilder) error {
+	if s == nil {
+		return ErrorNilSQL
+	}
+
+	s.WriteString(" {{.Table}}")
+	return nil
 }
 
 // --- field ---
 type generate{{.Type}}field struct {
 	{{range $k,$v:= .FieldMapper}}
-		{{$k}} {{if $.IsAddImport}}StitchingSQLGo.{{end}}SQLField{{end}}
+		{{$k}} {{if $.IsAddImport}}StitchingSQLGo.{{end}}Field{{end}}
 }
 
 var (
@@ -99,12 +105,24 @@ var (
 {{range $k,$v:= .FieldMapper}}
 // --- generate {{$.Table}} table {{$v}} Field
 type generate{{$.Type}}field{{$k}} struct{}
+func (generate{{$.Type}}field{{$k}}) Field(s *{{if $.IsAddImport}}StitchingSQLGo.{{end}}SqlBuilder,isRefTable bool) error {
+	if s == nil {
+		return ErrorNilSQL
+	}
 
-func (f generate{{$.Type}}field{{$k}}) SQLTable() string {
-	return {{$.Type}}{}.SQLTable()
-}
-func (f generate{{$.Type}}field{{$k}}) SQLField() string {
-	return "{{$v}}" 
+
+	if isRefTable {
+		if err := ({{$.Type}}{}).Table(s); err != nil{
+			return err
+		}
+		s.WriteByte('.')
+	} else {
+		s.WriteByte(' ')
+    }
+
+	s.WriteString("{{$v}}")
+
+	return nil
 }
 {{end}}
 
@@ -114,7 +132,7 @@ var (
 	Error{{.Type}}SQLFieldsToStructFieldPointer = errors.New("sql fields can't find match {{stringCaseToLowerCamelCase .Type}} struct field")
 )
 
-func ({{.Type}}) SQLFieldsToStructFieldPointer(fs StitchingSQLGo.SQLFields, {{stringCaseToLowerCamelCase .Type}} *{{.Type}}) ([]interface{}, error) {
+func ({{.Type}}) SQLFieldsToStructFieldPointer(fs {{if $.IsAddImport}}StitchingSQLGo.{{end}}SQLFields, {{stringCaseToLowerCamelCase .Type}} *{{.Type}}) ([]interface{}, error) {
 	fields := make([]interface{}, 0, len(fs))
 
 	for _, f := range fs {
@@ -131,7 +149,7 @@ func ({{.Type}}) SQLFieldsToStructFieldPointer(fs StitchingSQLGo.SQLFields, {{st
 	return fields, nil
 }
 
-func ({{.Type}}) QueryRow(db *sql.DB, s StitchingSQLGo.Select) ({{.Type}}, error) {
+func ({{.Type}}) QueryRow(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ({{.Type}}, error) {
 
 	sql, args, err := s.SQL()
 	if err != nil {
@@ -152,7 +170,7 @@ func ({{.Type}}) QueryRow(db *sql.DB, s StitchingSQLGo.Select) ({{.Type}}, error
 }
 
 
-func ({{.Type}}) Query(db *sql.DB, s StitchingSQLGo.Select) ([]{{.Type}}, error) {
+func ({{.Type}}) Query(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ([]{{.Type}}, error) {
 
 	{{stringCaseToLowerCamelCase .Type}}Slice := make([]{{.Type}}, 0)
 
@@ -182,7 +200,7 @@ func ({{.Type}}) Query(db *sql.DB, s StitchingSQLGo.Select) ([]{{.Type}}, error)
 }
 
 
-func ({{.Type}}) Exec(db *sql.DB, e StitchingSQLGo.Exec) (sql.Result, error) {
+func ({{.Type}}) Exec(db *sql.DB, e {{if .IsAddImport}}StitchingSQLGo.{{end}}Exec) (sql.Result, error) {
 
 	sql, args, err := e.Exec()
 	if err != nil {
@@ -192,14 +210,14 @@ func ({{.Type}}) Exec(db *sql.DB, e StitchingSQLGo.Exec) (sql.Result, error) {
 	return db.Exec(sql, args...)
 }
 
-func ({{.Type}}) ExecWithReturning(db *sql.DB, r StitchingSQLGo.ExecWithReturning) ({{.Type}}, error) {
+func ({{.Type}}) ExecWithReturning(db *sql.DB, r {{if .IsAddImport}}StitchingSQLGo.{{end}}ExecWithReturning) ({{.Type}}, error) {
 	sql, args, err := r.Exec()
 	if err != nil {
 		return {{.Type}}{}, err
 	}
 
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer(StitchingSQLGo.SQLFields(r.Returning()), &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}SQLFields(r.Returning()), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
@@ -211,7 +229,7 @@ func ({{.Type}}) ExecWithReturning(db *sql.DB, r StitchingSQLGo.ExecWithReturnin
 	return {{stringCaseToLowerCamelCase .Type}}, nil
 }
 
-func ({{.Type}}) TxQueryRow(tx *sql.Tx, s StitchingSQLGo.Select) ({{.Type}}, error) {
+func ({{.Type}}) TxQueryRow(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ({{.Type}}, error) {
 
 	sql, args, err := s.SQL()
 	if err != nil {
@@ -232,7 +250,7 @@ func ({{.Type}}) TxQueryRow(tx *sql.Tx, s StitchingSQLGo.Select) ({{.Type}}, err
 }
 
 
-func ({{.Type}}) TxQuery(tx *sql.Tx, s StitchingSQLGo.Select) ([]{{.Type}}, error) {
+func ({{.Type}}) TxQuery(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ([]{{.Type}}, error) {
 
 	{{stringCaseToLowerCamelCase .Type}}Slice := make([]{{.Type}}, 0)
 
@@ -262,7 +280,7 @@ func ({{.Type}}) TxQuery(tx *sql.Tx, s StitchingSQLGo.Select) ([]{{.Type}}, erro
 }
 
 
-func ({{.Type}}) TxExec(tx *sql.Tx, e StitchingSQLGo.Exec) (sql.Result, error) {
+func ({{.Type}}) TxExec(tx *sql.Tx, e {{if .IsAddImport}}StitchingSQLGo.{{end}}Exec) (sql.Result, error) {
 
 	sql, args, err := e.Exec()
 	if err != nil {
@@ -272,14 +290,14 @@ func ({{.Type}}) TxExec(tx *sql.Tx, e StitchingSQLGo.Exec) (sql.Result, error) {
 	return tx.Exec(sql, args...)
 }
 
-func ({{.Type}}) TxExecWithReturning(tx *sql.Tx, r StitchingSQLGo.ExecWithReturning) ({{.Type}}, error) {
+func ({{.Type}}) TxExecWithReturning(tx *sql.Tx, r {{if .IsAddImport}}StitchingSQLGo.{{end}}ExecWithReturning) ({{.Type}}, error) {
 	sql, args, err := r.Exec()
 	if err != nil {
 		return {{.Type}}{}, err
 	}
 
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer(StitchingSQLGo.SQLFields(r.Returning()), &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}SQLFields(r.Returning()), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
