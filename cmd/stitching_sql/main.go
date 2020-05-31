@@ -81,7 +81,7 @@ import(
 
 
 // --- table ---
-func ({{.Type}}) Table(s *SqlBuilder) error {
+func ({{.Type}}) Table(s *{{if $.IsAddImport}}StitchingSQLGo.{{end}}SqlBuilder) error {
 	if s == nil {
 		return {{if $.IsAddImport}}StitchingSQLGo.{{end}}ErrorNilSQL
 	}
