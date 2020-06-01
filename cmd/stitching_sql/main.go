@@ -164,7 +164,7 @@ func ({{.Type}}) QueryRow(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}
 }
 
 func ({{.Type}}) QueryRowScan(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query,scans ...interface{}) error {
-	sql, args, err := s.SQL()
+	sql, args, err := s.Query()
 	if err != nil {
 		return err
 	}
@@ -180,7 +180,7 @@ func ({{.Type}}) Query(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Qu
 
 	{{stringCaseToLowerCamelCase .Type}}Slice := make([]{{.Type}}, 0)
 
-	sql, args, err := s.SQL()
+	sql, args, err := s.Query()
 	if err != nil {
 		return nil, err
 	}
@@ -238,7 +238,7 @@ func ({{.Type}}) ExecWithReturning(db *sql.DB, r {{if .IsAddImport}}StitchingSQL
 
 func ({{.Type}}) TxQueryRow(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query) ({{.Type}}, error) {
 
-	sql, args, err := s.SQL()
+	sql, args, err := s.Query()
 	if err != nil {
 		return {{.Type}}{}, err
 	}
@@ -261,7 +261,7 @@ func ({{.Type}}) TxQuery(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}
 
 	{{stringCaseToLowerCamelCase .Type}}Slice := make([]{{.Type}}, 0)
 
-	sql, args, err := s.SQL()
+	sql, args, err := s.Query()
 	if err != nil {
 		return nil, err
 	}
