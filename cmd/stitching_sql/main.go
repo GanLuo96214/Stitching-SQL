@@ -151,7 +151,7 @@ func ({{.Type}}) FieldsToStructFieldPointer(fs {{if $.IsAddImport}}StitchingSQLG
 
 func ({{.Type}}) QueryRow(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query) ({{.Type}}, error) {
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields(), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
@@ -192,7 +192,7 @@ func ({{.Type}}) Query(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Qu
 
 	for rows.Next() {
 		{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-		fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
+		fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields(), &{{stringCaseToLowerCamelCase .Type}})
 		if err != nil {
 			return nil, err
 		}
@@ -244,7 +244,7 @@ func ({{.Type}}) TxQueryRow(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{en
 	}
 
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields(), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
@@ -273,7 +273,7 @@ func ({{.Type}}) TxQuery(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}
 
 	for rows.Next() {
 		{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-		fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
+		fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields(), &{{stringCaseToLowerCamelCase .Type}})
 		if err != nil {
 			return nil, err
 		}

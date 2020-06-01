@@ -27,6 +27,7 @@ select exists(select field1 from table1)
 */
 type Query interface {
 	Query() (string, []interface{}, error)
+	Fields() Fields
 }
 
 /*

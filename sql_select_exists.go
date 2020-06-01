@@ -4,8 +4,8 @@ package StitchingSQLGo
 postgres https://www.postgresql.org/docs/current/sql-select.html
 */
 type SelectExists struct {
-	Fields `validate:"required"`
-	Table  `validate:"required"`
+	FS    Fields `validate:"required"`
+	Table `validate:"required"`
 	Where
 	OrderBy
 	Limit
@@ -24,7 +24,7 @@ func (slt SelectExists) SQL() (string, []interface{}, error) {
 	s.WriteString("select exists(select")
 
 	// field1, field2
-	if err := slt.Fields.Fields(&s); err != nil {
+	if err := slt.FS.Fields(&s); err != nil {
 		return "", nil, err
 	}
 
@@ -69,4 +69,7 @@ func (slt SelectExists) SQL() (string, []interface{}, error) {
 
 func (slt SelectExists) Query() (string, []interface{}, error) {
 	return slt.SQL()
+}
+func (slt SelectExists) Fields() Fields {
+	return slt.FS
 }
