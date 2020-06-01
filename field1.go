@@ -7,7 +7,7 @@ func (f Field1) Field(s *SqlBuilder, isRefTable bool) error {
 		return ErrorNilSQL
 	}
 
-	s.WriteByte('1')
+	s.WriteString(" 1")
 
 	return nil
 }

@@ -9,7 +9,7 @@ func TestField1_Field(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	except := "1"
+	except := " 1"
 	if s.String() != except {
 		t.Fatalf("except\n%s\nnow\n%s", except, s.String())
 	}
