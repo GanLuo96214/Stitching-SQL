@@ -149,7 +149,7 @@ func ({{.Type}}) FieldsToStructFieldPointer(fs {{if $.IsAddImport}}StitchingSQLG
 	return fields, nil
 }
 
-func ({{.Type}}) QueryRow(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ({{.Type}}, error) {
+func ({{.Type}}) QueryRow(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query) ({{.Type}}, error) {
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
 	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
@@ -163,7 +163,7 @@ func ({{.Type}}) QueryRow(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}
 	return {{stringCaseToLowerCamelCase .Type}}, nil
 }
 
-func ({{.Type}}) QueryRowScan(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select,scans ...interface{}) error {
+func ({{.Type}}) QueryRowScan(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query,scans ...interface{}) error {
 	sql, args, err := s.SQL()
 	if err != nil {
 		return err
@@ -176,7 +176,7 @@ func ({{.Type}}) QueryRowScan(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{
 }
 
 
-func ({{.Type}}) Query(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ([]{{.Type}}, error) {
+func ({{.Type}}) Query(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query) ([]{{.Type}}, error) {
 
 	{{stringCaseToLowerCamelCase .Type}}Slice := make([]{{.Type}}, 0)
 
@@ -236,7 +236,7 @@ func ({{.Type}}) ExecWithReturning(db *sql.DB, r {{if .IsAddImport}}StitchingSQL
 	return {{stringCaseToLowerCamelCase .Type}}, nil
 }
 
-func ({{.Type}}) TxQueryRow(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ({{.Type}}, error) {
+func ({{.Type}}) TxQueryRow(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query) ({{.Type}}, error) {
 
 	sql, args, err := s.SQL()
 	if err != nil {
@@ -257,7 +257,7 @@ func ({{.Type}}) TxQueryRow(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{en
 }
 
 
-func ({{.Type}}) TxQuery(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ([]{{.Type}}, error) {
+func ({{.Type}}) TxQuery(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query) ([]{{.Type}}, error) {
 
 	{{stringCaseToLowerCamelCase .Type}}Slice := make([]{{.Type}}, 0)
 

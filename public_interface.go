@@ -22,6 +22,15 @@ type Table interface {
 
 /*
 example:
+select field1 from table1
+select exists(select field1 from table1)
+*/
+type Query interface {
+	Query() (string, []interface{}, error)
+}
+
+/*
+example:
 insert into table (field) values (value)
 */
 type Exec interface {
@@ -30,7 +39,7 @@ type Exec interface {
 
 /*
 example:
-insert into table (field) values (value)
+insert into table (field1) values (value1) returning field1
 */
 type ExecWithReturning interface {
 	Exec

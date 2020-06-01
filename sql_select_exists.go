@@ -66,3 +66,7 @@ func (slt SelectExists) SQL() (string, []interface{}, error) {
 
 	return s.String(), s.args, nil
 }
+
+func (slt SelectExists) Query() (string, []interface{}, error) {
+	return slt.SQL()
+}

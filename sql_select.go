@@ -63,3 +63,7 @@ func (slt Select) SQL() (string, []interface{}, error) {
 
 	return s.String(), s.args, nil
 }
+
+func (slt Select) Query() (string, []interface{}, error) {
+	return slt.SQL()
+}
