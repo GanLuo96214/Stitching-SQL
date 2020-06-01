@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-//go:generate stitching_sql -type=TestExists_FieldTable -file-name=exists_table_stitching_sql_test.go -is-add-import=false
+//go:generate stitching_sql -type=TestExists_FieldTable -file-name=function_exists_table_stitching_sql_test.go -is-add-import=false
 type TestExists_FieldTable struct {
 	Field1 int
 }
