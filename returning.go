@@ -1,6 +1,6 @@
 package StitchingSQLGo
 
-type Returning SQLFields
+type Returning Fields
 
 func (r Returning) Returning(s *SqlBuilder) error {
 	if s == nil {
@@ -12,5 +12,5 @@ func (r Returning) Returning(s *SqlBuilder) error {
 
 	s.WriteString(" returning")
 
-	return SQLFields(r).sqlFields(s)
+	return Fields(r).sqlFields(s)
 }

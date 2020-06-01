@@ -4,8 +4,8 @@ package StitchingSQLGo
 postgres https://www.postgresql.org/docs/current/sql-select.html
 */
 type Select struct {
-	SQLFields `validate:"required"`
-	Table     `validate:"required"`
+	Fields `validate:"required"`
+	Table  `validate:"required"`
 	Where
 	OrderBy
 	Limit
@@ -24,7 +24,7 @@ func (slt Select) SQL() (string, []interface{}, error) {
 	s.WriteString("select")
 
 	// field1, field2
-	if err := slt.SQLFields.sqlFields(&s); err != nil {
+	if err := slt.Fields.sqlFields(&s); err != nil {
 		return "", nil, err
 	}
 

@@ -12,7 +12,7 @@ type TestSelectExists_SQLTable struct {
 func TestSelectExists_SQL(t *testing.T) {
 
 	s := SelectExists{
-		SQLFields: SQLFields{
+		Fields: Fields{
 			TestSelectExists_SQLTable_F.Field1,
 			TestSelectExists_SQLTable_F.Field2,
 			TestSelectExists_SQLTable_F.Field3,

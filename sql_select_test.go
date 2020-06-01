@@ -12,7 +12,7 @@ type TestSelect_SQLTable struct {
 func TestSelect_SQL(t *testing.T) {
 
 	s := Select{
-		SQLFields: SQLFields{
+		Fields: Fields{
 			TestSelect_SQLTable_F.Field1,
 			TestSelect_SQLTable_F.Field2,
 			TestSelect_SQLTable_F.Field3,
