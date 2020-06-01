@@ -34,5 +34,5 @@ insert into table (field) values (value)
 */
 type ExecWithReturning interface {
 	Exec
-	Returning() Returning
+	ExecWithReturning() Returning
 }
