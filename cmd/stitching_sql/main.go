@@ -150,23 +150,29 @@ func ({{.Type}}) SQLFieldsToStructFieldPointer(fs {{if $.IsAddImport}}StitchingS
 }
 
 func ({{.Type}}) QueryRow(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ({{.Type}}, error) {
-
-	sql, args, err := s.SQL()
-	if err != nil {
-		return {{.Type}}{}, err
-	}
-
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
 	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer(s.SQLFields, &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
 
-	if err := db.QueryRow(sql, args...).Scan(fields...); err != nil {
+	if err := ({{.Type}}{}).QueryRowScan(db,s,fields...); err != nil {
 		return {{.Type}}{}, err
 	}
 
 	return {{stringCaseToLowerCamelCase .Type}}, nil
+}
+
+func ({{.Type}}) QueryRowScan(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select,scans ...interface{}) error {
+	sql, args, err := s.SQL()
+	if err != nil {
+		return err
+	}
+
+	if err := db.QueryRow(sql, args...).Scan(scans...); err != nil {
+		return err
+	}
+	return nil
 }
 
 
