@@ -194,6 +194,7 @@ func ({{.Type}}) Query(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Se
 		if err := rows.Scan(fields...); err != nil {
 			return nil, err
 		}
+		{{stringCaseToLowerCamelCase .Type}}Slice = append({{stringCaseToLowerCamelCase .Type}}Slice, {{.Type}})
 	}
 
 	return {{stringCaseToLowerCamelCase .Type}}Slice, nil
