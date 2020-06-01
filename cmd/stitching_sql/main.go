@@ -129,10 +129,10 @@ func (generate{{$.Type}}field{{$k}}) Field(s *{{if $.IsAddImport}}StitchingSQLGo
 
 // --- basic sql method ---
 var (
-	Error{{.Type}}SQLFieldsToStructFieldPointer = errors.New("sql fields can't find match {{stringCaseToLowerCamelCase .Type}} struct field")
+	Error{{.Type}}FieldsToStructFieldPointer = errors.New("sql fields can't find match {{stringCaseToLowerCamelCase .Type}} struct field")
 )
 
-func ({{.Type}}) SQLFieldsToStructFieldPointer(fs {{if $.IsAddImport}}StitchingSQLGo.{{end}}Fields, {{stringCaseToLowerCamelCase .Type}} *{{.Type}}) ([]interface{}, error) {
+func ({{.Type}}) FieldsToStructFieldPointer(fs {{if $.IsAddImport}}StitchingSQLGo.{{end}}Fields, {{stringCaseToLowerCamelCase .Type}} *{{.Type}}) ([]interface{}, error) {
 	fields := make([]interface{}, 0, len(fs))
 
 	for _, f := range fs {
@@ -142,7 +142,7 @@ func ({{.Type}}) SQLFieldsToStructFieldPointer(fs {{if $.IsAddImport}}StitchingS
 		case {{$.Type}}_F.{{$k}}:
 			prt = &{{stringCaseToLowerCamelCase $.Type}}.{{$k}}{{end}}
 		default:
-			return nil, Error{{.Type}}SQLFieldsToStructFieldPointer
+			return nil, Error{{.Type}}FieldsToStructFieldPointer
 		}
 		fields = append(fields, prt)
 	}
@@ -151,7 +151,7 @@ func ({{.Type}}) SQLFieldsToStructFieldPointer(fs {{if $.IsAddImport}}StitchingS
 
 func ({{.Type}}) QueryRow(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Select) ({{.Type}}, error) {
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
@@ -192,7 +192,7 @@ func ({{.Type}}) Query(db *sql.DB, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Se
 
 	for rows.Next() {
 		{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-		fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
+		fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
 		if err != nil {
 			return nil, err
 		}
@@ -224,7 +224,7 @@ func ({{.Type}}) ExecWithReturning(db *sql.DB, r {{if .IsAddImport}}StitchingSQL
 	}
 
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}Fields(r.ExecWithReturning()), &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}Fields(r.ExecWithReturning()), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
@@ -244,7 +244,7 @@ func ({{.Type}}) TxQueryRow(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{en
 	}
 
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
@@ -273,7 +273,7 @@ func ({{.Type}}) TxQuery(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}
 
 	for rows.Next() {
 		{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-		fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
+		fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields, &{{stringCaseToLowerCamelCase .Type}})
 		if err != nil {
 			return nil, err
 		}
@@ -304,7 +304,7 @@ func ({{.Type}}) TxExecWithReturning(tx *sql.Tx, r {{if .IsAddImport}}StitchingS
 	}
 
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}Fields(r.ExecWithReturning()), &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}Fields(r.ExecWithReturning()), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}

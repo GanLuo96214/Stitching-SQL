@@ -2,7 +2,7 @@ package StitchingSQLGo
 
 type Fields []Field
 
-func (fs Fields) sqlFields(s *SqlBuilder) error {
+func (fs Fields) Fields(s *SqlBuilder) error {
 	if s == nil {
 		return ErrorNilSQL
 	}

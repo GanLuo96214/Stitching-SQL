@@ -12,5 +12,5 @@ func (r Returning) Returning(s *SqlBuilder) error {
 
 	s.WriteString(" returning")
 
-	return Fields(r).sqlFields(s)
+	return Fields(r).Fields(s)
 }

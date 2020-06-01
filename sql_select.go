@@ -24,7 +24,7 @@ func (slt Select) SQL() (string, []interface{}, error) {
 	s.WriteString("select")
 
 	// field1, field2
-	if err := slt.Fields.sqlFields(&s); err != nil {
+	if err := slt.Fields.Fields(&s); err != nil {
 		return "", nil, err
 	}
 
