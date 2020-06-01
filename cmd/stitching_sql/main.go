@@ -224,7 +224,7 @@ func ({{.Type}}) ExecWithReturning(db *sql.DB, r {{if .IsAddImport}}StitchingSQL
 	}
 
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}SQLFields(r.Returning()), &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}SQLFields(r.ExecWithReturning()), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
@@ -304,7 +304,7 @@ func ({{.Type}}) TxExecWithReturning(tx *sql.Tx, r {{if .IsAddImport}}StitchingS
 	}
 
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
-	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}SQLFields(r.Returning()), &{{stringCaseToLowerCamelCase .Type}})
+	fields, err := {{stringCaseToLowerCamelCase .Type}}.SQLFieldsToStructFieldPointer({{if .IsAddImport}}StitchingSQLGo.{{end}}SQLFields(r.ExecWithReturning()), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
