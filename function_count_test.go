@@ -40,3 +40,19 @@ func TestCount_Field_RefTableFalse(t *testing.T) {
 	}
 
 }
+
+func TestCount1(t *testing.T) {
+	s, e := SqlBuilder{}, Count{
+		F: Count1{},
+	}
+
+	if err := e.Field(&s, false); err != nil {
+		t.Fatal(err)
+	}
+
+	except := " count(1)"
+	if except != s.String() {
+		t.Fatalf("except\n%s\nnow\n%s", except, s.String())
+	}
+
+}

@@ -24,3 +24,15 @@ func (e Count) Field(s *SqlBuilder, isRefTable bool) error {
 	s.WriteByte(')')
 	return nil
 }
+
+type Count1 struct{}
+
+func (Count1) Field(s *SqlBuilder, isRefTable bool) error {
+	if s == nil {
+		return ErrorNilSQL
+	}
+
+	s.WriteString("1")
+
+	return nil
+}
