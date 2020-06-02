@@ -237,23 +237,30 @@ func ({{.Type}}) ExecWithReturning(db *sql.DB, r {{if .IsAddImport}}StitchingSQL
 }
 
 func ({{.Type}}) TxQueryRow(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query) ({{.Type}}, error) {
-
-	sql, args, err := s.Query()
-	if err != nil {
-		return {{.Type}}{}, err
-	}
-
 	{{stringCaseToLowerCamelCase .Type}} := {{.Type}}{}
 	fields, err := {{stringCaseToLowerCamelCase .Type}}.FieldsToStructFieldPointer(s.Fields(), &{{stringCaseToLowerCamelCase .Type}})
 	if err != nil {
 		return {{.Type}}{}, err
 	}
 
-	if err := tx.QueryRow(sql, args...).Scan(fields...); err != nil {
+	if err := ({{.Type}}{}).TxQueryRowScan(tx, s,fields...); err != nil {
 		return {{.Type}}{}, err
 	}
 
 	return {{stringCaseToLowerCamelCase .Type}}, nil
+}
+
+func ({{.Type}}) TxQueryRowScan(tx *sql.Tx, s {{if .IsAddImport}}StitchingSQLGo.{{end}}Query,scans ...interface{}) error {
+	sql, args, err := s.Query()
+	if err != nil {
+		return err
+	}
+
+	if err := tx.QueryRow(sql, args...).Scan(scans...); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 
