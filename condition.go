@@ -3,7 +3,7 @@ package StitchingSQLGo
 /*
 condition
 
-L SqlBuilder field
+L field
 O condition operator
 R value
 */
