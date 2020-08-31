@@ -1,6 +1,9 @@
 package StitchingSQLGo
 
-import "testing"
+import (
+	"github.com/google/go-cmp/cmp"
+	"testing"
+)
 
 //go:generate stitching_sql -type=TestDelete_SQLTable -file-name=sql_delete_table_stitching_sql_test.go -is-add-import=false
 type TestDelete_SQLTable struct {
@@ -77,7 +80,7 @@ func TestDelete_SQL(t *testing.T) {
 	}
 
 	exceptArgs := []interface{}{1, 2, 3, 4, 2, 3, 4}
-	if argsCompare(exceptArgs, args) == false {
+	if cmp.Equal(exceptArgs, args) == false {
 		t.Fatalf("except\n%v\nnow\n%v", exceptArgs, args)
 	}
 

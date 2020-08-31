@@ -1,6 +1,9 @@
 package StitchingSQLGo
 
-import "testing"
+import (
+	"github.com/google/go-cmp/cmp"
+	"testing"
+)
 
 //go:generate stitching_sql -type=TestUpdate_SQLTable -file-name=sql_update_table_stitching_sql_test.go -is-add-import=false
 type TestUpdate_SQLTable struct {
@@ -70,7 +73,7 @@ func TestUpdate_SQL(t *testing.T) {
 		t.Fatalf("now\n%s", sql)
 	}
 
-	if argsCompare(exceptArgs, args) == false {
+	if cmp.Equal(exceptArgs, args) == false {
 		t.Fatalf("except\n%v\nnow\n%v", exceptArgs, args)
 	}
 

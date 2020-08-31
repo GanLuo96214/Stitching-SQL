@@ -1,6 +1,7 @@
 package StitchingSQLGo
 
 import (
+	"github.com/google/go-cmp/cmp"
 	"testing"
 )
 
@@ -45,7 +46,7 @@ func TestInsert_SQL(t *testing.T) {
 		t.Fatalf("now\n%s", sql)
 	}
 
-	if argsCompare(exceptArgs, args) == false {
+	if cmp.Equal(exceptArgs, args) == false {
 		t.Fatalf("except\n%v\nnow\n%v", exceptArgs, args)
 	}
 

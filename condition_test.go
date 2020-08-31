@@ -1,6 +1,7 @@
 package StitchingSQLGo
 
 import (
+	"github.com/google/go-cmp/cmp"
 	"testing"
 )
 
@@ -26,7 +27,7 @@ func TestCondition_Condition(t *testing.T) {
 	}
 	args := []interface{}{1}
 
-	if argsCompare(args, s.args) == false {
+	if cmp.Equal(args, s.args) == false {
 		t.Fatalf("except\n%v\nnow\n%v\n", args, s.args)
 	}
 

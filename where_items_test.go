@@ -1,6 +1,9 @@
 package StitchingSQLGo
 
-import "testing"
+import (
+	"github.com/google/go-cmp/cmp"
+	"testing"
+)
 
 //go:generate stitching_sql -type=TestWhereItems_WhereItemTable -file-name=where_items_table_stitching_sql_test.go -is-add-import=false
 type TestWhereItems_WhereItemTable struct {
@@ -70,7 +73,7 @@ func TestWhereItems_WhereItem(t *testing.T) {
 	exceptArgs := []interface{}{
 		1, 2, 3, 4, 2, 3, 4,
 	}
-	if argsCompare(exceptArgs, s.args) == false {
+	if cmp.Equal(exceptArgs, s.args) == false {
 		t.Fatalf("except\n%v\nnow\n%v", exceptArgs, s.args)
 	}
 
